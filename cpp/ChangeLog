@@ -1,0 +1,11 @@
+2008-11-09  Guillaume SADEGH  <sadegh@lrde.epita.fr>
+
+	First draft with the All. Three notations : Class, function,
+	variadic template function.
+	* junction.h: Core library.
+	* tests/test_all.cc: Tests on the `All' junction form. Class notation.
+	* tests/test_all2.cc: Tests on the `All' junction form. Function notation.
+	* tests/test_all3.cc: Tests on the `All' junction form. Variadic
+	template function notation (need a compiler supporting c++0x
+ 	(like g++4.3.x)).
+	* tests/Makefile: For tests.
