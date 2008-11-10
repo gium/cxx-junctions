@@ -87,6 +87,14 @@ namespace gs
 # endif
 #endif
 
+  // Use macro for a light interface without variadic template.
+#define GS_ANY_2(V1, V2) (gs::any(V1) << V2)
+#define GS_ANY_3(V1, V2, V3) (GS_ANY_2(V1, V2) << V3)
+#define GS_ANY_4(V1, V2, V3, V4) (GS_ANY_3(V1, V2, V3) << V4)
+#define GS_ANY_5(V1, V2, V3, V4, V5) (GS_ANY_4(V1, V2, V3, V4) << V5)
+#define GS_ANY_6(V1, V2, V3, V4, V5, V6) (GS_ANY_5(V1, V2, V3, V4, V5) << V6)
+
+
 }
 
 #endif

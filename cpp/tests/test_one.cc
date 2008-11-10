@@ -1,7 +1,7 @@
 // test_one.cc - Junction library
 // Copyright (c) 2008 Guillaume Sadegh <guillaume@sadegh-beyki.com>
 //
-// Tests : One junction operator, with the class notation.
+// Tests : One junction operator, with the class interface.
 
 #include <gs/junction_one.h>
 #include <iostream>

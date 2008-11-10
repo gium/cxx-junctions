@@ -1,7 +1,7 @@
 // test_any2.cc - Junction library
 // Copyright (c) 2008 Guillaume Sadegh <guillaume@sadegh-beyki.com>
 //
-// Tests : Any junction operator, with the function notation.
+// Tests : Any junction operator, with the function interface.
 
 #include <gs/junction_any.h>
 #include <iostream>

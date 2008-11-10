@@ -1,7 +1,7 @@
 // test_none2.cc - Junction library
 // Copyright (c) 2008 Guillaume Sadegh <guillaume@sadegh-beyki.com>
 //
-// Tests : None junction operator, with the function notation.
+// Tests : None junction operator, with the function interface.
 
 #include <gs/junction_none.h>
 #include <iostream>

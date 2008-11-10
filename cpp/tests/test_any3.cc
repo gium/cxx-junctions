@@ -1,7 +1,7 @@
 // test_any3.cc - Junction library
 // Copyright (c) 2008 Guillaume Sadegh <guillaume@sadegh-beyki.com>
 //
-// Tests : Any junction operator, with the variadic templated function notation (C++0x).
+// Tests : Any junction operator, with the variadic templated function interface (C++0x).
 
 #include <gs/junction_any.h>
 #include <iostream>
@@ -54,7 +54,7 @@ int main()
   else
     std::cout << "FAIL" << std::endl;
 #else
-  std::cerr << "This notation requires variadic templates." << std::endl
+  std::cerr << "This interface requires variadic templates." << std::endl
 	    << "This compiler doesn't seem to support c++0x feature." << std::endl
 	    << "Maybe just a flag is missing (hint: -std=c++0x)." << std::endl;
 #endif

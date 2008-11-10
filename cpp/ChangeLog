@@ -1,13 +1,21 @@
 2008-11-10  Guillaume SADEGH  <sadegh@lrde.epita.fr>
+
+	* junction_all.h, junction_any.h, junction_none.h,
+	junction_one.h: New interface added, with macros.
+	* tests/test_all4.cc, tests/test_any4.cc, tests/test_none4.cc,
+	tests/test_one4.cc: Add tests for this new interface.
+	* tests/Makefile: Update Makefile.
+
+2008-11-10  Guillaume SADEGH  <sadegh@lrde.epita.fr>
 	* junction_all.h, junction_any.h, junction.h, junction_none.h,
-	junction_one.h: This files are moved ...
+	junction_one.h: Move this files ...
 	* gs/junction_all.h, gs/junction_any.h, gs/junction.h,
 	gs/junction_none.h, gs/junction_one.h: ... here.
 	* tests/test_all2.cc, tests/test_all3.cc, tests/test_all.cc,
 	tests/test_any2.cc, tests/test_any3.cc, tests/test_any.cc,
 	tests/test_none2.cc, tests/test_none3.cc, tests/test_none.cc,
 	tests/test_one2.cc, tests/test_one3.cc, tests/test_one.cc:
-	#include changed.
+	Change #include.
 
 2008-11-10  Guillaume SADEGH  <sadegh@lrde.epita.fr>
 
@@ -22,7 +30,7 @@
 	* junction_any.h: New. Any operator.
 	* junction_none.h: New. None operator.
 	* junction_one.h: New. One operator.
-	* junction.h (JUNCTION_INHIB_0X_WARNING): Is defined after one
+	* junction.h (JUNCTION_INHIB_0X_WARNING): Defined after one
 	warm. So the warning has effect only once. Remove All operator
 	from this file.
 
@@ -31,7 +39,7 @@
 
 	First draft with the All. Three notations : Class, function,
 	variadic template function.
-	* junction.h: Core library.
+	* junction.h: New. Core library.
 	* tests/test_all.cc: Tests on the `All' junction form. Class notation.
 	* tests/test_all2.cc: Tests on the `All' junction form. Function notation.
 	* tests/test_all3.cc: Tests on the `All' junction form. Variadic
