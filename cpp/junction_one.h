@@ -1,0 +1,96 @@
+// junction_one.h - Junction library			      	-*- c++ -*-
+// Copyright (c) 2008 Guillaume Sadegh <guillaume@sadegh-beyki.com>
+//
+// Namespace : gs
+// Operator `one'.
+
+#ifndef GS_JUNCTION_ONE_H
+#define GS_JUNCTION_ONE_H
+
+#include "junction.h"
+
+namespace gs
+{
+
+  namespace
+  {
+    // Comparaison classes for operators.
+
+    // "One" : One (and just one) argument matchs the predicate.
+    template <typename _Type, class _Predicate>
+    class OneCompare
+    {
+    public:
+      static bool compare(const _Type compare_value,
+			  const typename __Argument<_Type>::type container)
+      {
+	unsigned count = 0;
+	for (typename __Argument<_Type>::type::const_iterator it(container.begin());
+	     it != container.end();
+	     ++it)
+	{
+	  if (_Predicate()(*it, compare_value))
+	    ++count;
+	}
+
+	return count == 1;
+      }
+    };
+  }
+
+
+  /*------------------.
+  | Interface for One |
+  `------------------*/
+
+  // Concrete classes for junctions.
+  template <typename _Type>
+  class One : public __Junction<_Type, OneCompare, One<_Type> >
+  {
+  };
+
+  // Wrapper functions.
+  template <typename _Type>
+  One<_Type> one(_Type t)
+  {
+    return One<_Type>() << t;
+  }
+
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+  // More Wrapper functions with C++0x and variadics templates.
+  template <typename _Type, typename ... Rest>
+  One<_Type>& _one(One<_Type>& junction, const _Type head, const Rest... tail)
+  {
+    junction << head;
+    _one(junction, tail...);
+    return junction;
+  }
+
+  template <typename _Type>
+  One<_Type>& _one(One<_Type>& junction, const _Type head)
+  {
+    return junction << head;
+  }
+
+  template <typename _Type, typename ... Rest>
+  One<_Type> one(_Type first, const Rest... tail)
+  {
+    One<_Type> junction;
+    return _one(junction << first, tail...);
+  }
+#else
+# ifdef __GNUC__
+#  if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3)) && !defined(JUNCTION_INHIB_0X_WARNING)
+  // Since g++ 4.3 variadic template are supported.
+#   warning Your g++ version seems to support variadic template.
+#   warning Their use will improve the junction interface.
+#   warning Add the -std=c++0x flag to your compiler to support this feature.
+#   warning You can inhib this warning with -DJUNCTION_INHIB_0X_WARNING.
+#   define JUNCTION_INHIB_0X_WARNING 1 // This warn only once.
+#  endif
+# endif
+#endif
+
+}
+
+#endif

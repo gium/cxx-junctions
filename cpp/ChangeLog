@@ -1,3 +1,21 @@
+2008-11-10  Guillaume SADEGH  <sadegh@lrde.epita.fr>
+
+	* tests/test_any.cc, tests/test_any2.cc, tests/test_any3.cc:
+	New. Test set for the any operator with 3 syntaxes.
+	* tests/test_none.cc, tests/test_none2.cc, tests/test_none3.cc:
+	New. Test set for the none operator with 3 syntaxes.
+	* tests/test_one.cc, tests/test_one2.cc, tests/test_one3.cc:
+	New. Test set for the one operator with 3 syntaxes.
+	* tests/test.sh: Script to test if all tests passes.
+	* junction_all.h: New. All operator now in this file.
+	* junction_any.h: New. Any operator.
+	* junction_none.h: New. None operator.
+	* junction_one.h: New. One operator.
+	* junction.h (JUNCTION_INHIB_0X_WARNING): Is defined after one
+	warm. So the warning has effect only once. Remove All operator
+	from this file.
+
+
 2008-11-09  Guillaume SADEGH  <sadegh@lrde.epita.fr>
 
 	First draft with the All. Three notations : Class, function,

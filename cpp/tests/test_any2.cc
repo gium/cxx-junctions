@@ -1,51 +1,55 @@
-// test_all3.cc - Junction library
+// junction.h - Junction library
 // Copyright (c) 2008 Guillaume Sadegh <guillaume@sadegh-beyki.com>
 //
-// Tests : All junction, with the variadic templated function notation (C++0x).
+// Tests : Any junction operator, with the function notation.
 
-#include <junction.h>
+#include <junction_any.h>
 #include <iostream>
 
 int main()
 {
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
-  if (! (gs::all(6, 7, 11) < 10))
+  if (((gs::any(6) << 7 << 11) < 10))
     std::cout << "PASS" << std::endl;
   else
     std::cout << "FAIL" << std::endl;
 
-  if (! (gs::all(6, 7, 11) == 10))
+  if (! ((gs::any(6) << 7 << 9) > 10))
     std::cout << "PASS" << std::endl;
   else
     std::cout << "FAIL" << std::endl;
 
-  if (gs::all(6, 7, 11) != 10)
+  if (! ((gs::any(6) << 7 << 11) == 10))
     std::cout << "PASS" << std::endl;
   else
     std::cout << "FAIL" << std::endl;
 
-  if (gs::all(6, 7, 9) < 10)
+  if (((gs::any(10) << 6 << 7 << 11) == 10))
     std::cout << "PASS" << std::endl;
   else
     std::cout << "FAIL" << std::endl;
 
-  if (gs::all(6, 7, 9) > -1)
+  if ((gs::any(6) << 10 << 10) != 10)
     std::cout << "PASS" << std::endl;
   else
     std::cout << "FAIL" << std::endl;
 
-  if (gs::all("test","test") == "test")
+  if ((gs::any(6) << 7 << 9) < 10)
     std::cout << "PASS" << std::endl;
   else
     std::cout << "FAIL" << std::endl;
 
-  if (! (gs::all("test",  "tst") == "test"))
+  if ((gs::any(6) << 7 << 9) > -1)
     std::cout << "PASS" << std::endl;
   else
     std::cout << "FAIL" << std::endl;
-#else
-  std::cerr << "This notation requires variadic templates." << std::endl
-	    << "This compiler doesn't seem to support c++0x feature." << std::endl
-	    << "Maybe just a flag is missing (hint: -std=c++0x)." << std::endl;
-#endif
+
+  if (! ((gs::any("testrere") << "etest") == "test"))
+    std::cout << "PASS" << std::endl;
+  else
+    std::cout << "FAIL" << std::endl;
+
+  if (((gs::any("test") << "tstee") == "test"))
+    std::cout << "PASS" << std::endl;
+  else
+    std::cout << "FAIL" << std::endl;
 }

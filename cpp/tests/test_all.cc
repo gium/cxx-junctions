@@ -8,8 +8,6 @@
 
 int main()
 {
-  std::cout << "a" << __GNUC_MINOR__ << std::endl;
-
   if (! ((gs::All<int>() << 6 << 7 << 11) < 10))
     std::cout << "PASS" << std::endl;
   else
