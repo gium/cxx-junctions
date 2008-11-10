@@ -3,7 +3,7 @@
 //
 // Tests : All junction, with the variadic templated function notation (C++0x).
 
-#include <junction.h>
+#include <gs/junction_all.h>
 #include <iostream>
 
 int main()

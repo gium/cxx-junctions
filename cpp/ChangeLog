@@ -1,4 +1,15 @@
 2008-11-10  Guillaume SADEGH  <sadegh@lrde.epita.fr>
+	* junction_all.h, junction_any.h, junction.h, junction_none.h,
+	junction_one.h: This files are moved ...
+	* gs/junction_all.h, gs/junction_any.h, gs/junction.h,
+	gs/junction_none.h, gs/junction_one.h: ... here.
+	* tests/test_all2.cc, tests/test_all3.cc, tests/test_all.cc,
+	tests/test_any2.cc, tests/test_any3.cc, tests/test_any.cc,
+	tests/test_none2.cc, tests/test_none3.cc, tests/test_none.cc,
+	tests/test_one2.cc, tests/test_one3.cc, tests/test_one.cc:
+	#include changed.
+
+2008-11-10  Guillaume SADEGH  <sadegh@lrde.epita.fr>
 
 	* tests/test_any.cc, tests/test_any2.cc, tests/test_any3.cc:
 	New. Test set for the any operator with 3 syntaxes.

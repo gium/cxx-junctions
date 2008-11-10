@@ -3,7 +3,7 @@
 //
 // Tests : Any junction operator, with the class notation.
 
-#include <junction_any.h>
+#include <gs/junction_any.h>
 #include <iostream>
 
 int main()

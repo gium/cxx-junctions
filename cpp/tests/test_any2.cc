@@ -1,9 +1,9 @@
-// junction.h - Junction library
+// test_any2.cc - Junction library
 // Copyright (c) 2008 Guillaume Sadegh <guillaume@sadegh-beyki.com>
 //
 // Tests : Any junction operator, with the function notation.
 
-#include <junction_any.h>
+#include <gs/junction_any.h>
 #include <iostream>
 
 int main()

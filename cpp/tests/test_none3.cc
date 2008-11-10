@@ -3,7 +3,7 @@
 //
 // Tests : None junction operator, with the variadic templated function notation (C++0x).
 
-#include <junction_none.h>
+#include <gs/junction_none.h>
 #include <iostream>
 
 int main()

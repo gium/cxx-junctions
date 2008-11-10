@@ -1,9 +1,9 @@
-// junction.h - Junction library
+// test_all.cc - Junction library
 // Copyright (c) 2008 Guillaume Sadegh <guillaume@sadegh-beyki.com>
 //
 // Tests : All junction, with the class notation.
 
-#include <junction.h>
+#include <gs/junction_all.h>
 #include <iostream>
 
 int main()

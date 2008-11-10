@@ -3,7 +3,7 @@
 //
 // Tests : One junction operator, with the variadic templated function notation (C++0x).
 
-#include <junction_one.h>
+#include <gs/junction_one.h>
 #include <iostream>
 
 int main()
