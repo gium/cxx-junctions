@@ -1,3 +1,30 @@
+2008-11-12  Guillaume SADEGH  <sadegh@lrde.epita.fr>
+	Comparaison can be done between Junction<Type> with another type
+	(AnotherType), when AnotherType has the expected operator.
+	Comparaison is not done in the written order (Type operator
+	AnotherType), but is inverted (AnotherType operator Type).
+	So :
+	Junction<Type> == AnothereType requires AnotherType to implement
+	operator ==
+	Junction<Type> != AnothereType requires AnotherType to implement
+	operator !=
+	Junction<Type> <  AnothereType requires AnotherType to implement
+	operator >=
+	Junction<Type> <= AnothereType requires AnotherType to implement
+	operator >
+	Junction<Type> >  AnothereType requires AnotherType to implement
+	operator <=
+	Junction<Type> >= AnothereType requires AnotherType to implement
+	operator <
+	* gs/internal.h: New. Reimplement predicates on two types.
+	* test/some_test.cc: New tests between junctions.
+	* test/test_all.cc, test/Makefile: Update. New test All<int> compare with float.
+	* gs/junction_all.h (AllCompare), gs/junction_any.h
+	(AnyCompare), gs/junction_none.h (NoneCompare),
+	gs/junction_one.h (OneCompare): Predicate on two differents types, and
+	arguments (Type, CompareType) reversed to (CompareType, Type).
+	* gs/junction.h: Update the _Compare template prototype.
+
 2008-11-10  Guillaume SADEGH  <sadegh@lrde.epita.fr>
 
 	* junction_all.h, junction_any.h, junction_none.h,

@@ -5,9 +5,9 @@
 // Operator `none'.
 
 #ifndef GS_JUNCTION_NONE_H
-#define GS_JUNCTION_NONE_H
+# define GS_JUNCTION_NONE_H
 
-#include "junction.h"
+# include "junction.h"
 
 namespace gs
 {
@@ -17,17 +17,17 @@ namespace gs
     // Comparaison classes for operators.
 
     // "None" : No argument matchs the predicate.
-    template <typename _Type, class _Predicate>
+    template <typename _Type, typename _TypeCompare,class _Predicate>
     class NoneCompare
     {
     public:
-      static bool compare(const _Type compare_value,
-			  const typename __Argument<_Type>::type container)
+      static bool compare(const _TypeCompare& compare_value,
+			  const typename __Argument<_Type>::type& container)
       {
 	for (typename __Argument<_Type>::type::const_iterator it(container.begin());
 	     it != container.end();
 	     ++it)
-	  if (_Predicate()(*it, compare_value))
+	  if (_Predicate()(compare_value, *it))
 	    return false;
 	return true;
       }

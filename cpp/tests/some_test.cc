@@ -3,49 +3,39 @@
 //
 // Tests : All junction, with the class interface.
 
-#include <gs/junction_all.h>
+#include <gs/junction.h>
 #include <iostream>
 
 int main()
 {
-  if (! ((gs::All<int>() << 6 << 7 << 11) < 10))
+  if (GS_ALL_2(2, 3) < GS_ANY_2(1, 4))
     std::cout << "PASS" << std::endl;
   else
     std::cout << "FAIL" << std::endl;
 
-  if (! ((gs::All<int>() << 6 << 7 << 11) == 10))
+  if (!(GS_ALL_2(2, 3) < GS_ALL_2(1, 4)))
     std::cout << "PASS" << std::endl;
   else
     std::cout << "FAIL" << std::endl;
 
-  if ((gs::All<int>() << 6 << 7 << 11) != 10)
+  if ((GS_ALL_2(2, 3) < GS_ALL_2(5, 4)))
     std::cout << "PASS" << std::endl;
   else
     std::cout << "FAIL" << std::endl;
 
-  if ((gs::All<int>() << 6 << 7 << 9) < 10)
+  if (!(GS_ALL_3(2, 3, 2) < GS_ANY_2(1, 3)))
     std::cout << "PASS" << std::endl;
   else
     std::cout << "FAIL" << std::endl;
 
-  if ((gs::All<int>() << 6 << 7 << 9) > -1)
+  if ((GS_ANY_3("lala", "lili", "lolo") == GS_ANY_2("lulu", "lala")))
     std::cout << "PASS" << std::endl;
   else
     std::cout << "FAIL" << std::endl;
 
-  if ((gs::All<std::string>() << "test" << "test") == "test")
+  if ((GS_ANY_3("lala", "lili", "lolo") != GS_ANY_2("lulululu", "lala")))
     std::cout << "PASS" << std::endl;
   else
     std::cout << "FAIL" << std::endl;
 
-  if (! ((gs::All<std::string>() << "test" << "tstee") == "test"))
-    std::cout << "PASS" << std::endl;
-  else
-    std::cout << "FAIL" << std::endl;
-
-  // Differents types
-  if ((gs::All<int>() << 6 << 7 << 9) < 10.)
-    std::cout << "PASS" << std::endl;
-  else
-    std::cout << "FAIL" << std::endl;
 }

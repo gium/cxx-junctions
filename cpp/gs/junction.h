@@ -3,14 +3,16 @@
 //
 // Namespace : gs
 // Provided classes : All, Any, None, One
-// Provided functions : all, any, none, One -- Variadic template enhance their use.
+// Provided functions : all, any, none, One
 
 #ifndef GS_JUNCTION_H
-#define GS_JUNCTION_H
+# define GS_JUNCTION_H
 
-#include <vector>
-#include <algorithm>
-#include <functional>
+# include <vector>
+# include <algorithm>
+# include <functional>
+
+# include "internal.h"
 
 namespace gs
 {
@@ -29,7 +31,7 @@ namespace gs
     // the comparaison function which specialize operators for
     // junctions, and the concrete class.
     template <typename _Type,
-	      template <typename _Type, class _Predicate> class _Compare,
+	      template <typename _Type, typename _TypeCompare, class _Predicate> class _Compare,
 	      class _Concrete>
     class __Junction
     {
@@ -43,34 +45,70 @@ namespace gs
 
       // Comparaison operators.
 
-      bool operator ==(_Type compare_value)
+      template <typename _TypeCompare>
+      bool operator ==(const _TypeCompare& compare_value) const
       {
-	return _Compare<_Type, std::equal_to<_Type> >::compare(compare_value, container_);
+	// compare will be : (compare_value == container_value)
+	// which must be equivalent to  container_value == compare_value
+
+	typedef _Compare<_Type, _TypeCompare, gs::internal::equal_to<_TypeCompare, _Type> >
+	  __compare;
+	return __compare::compare(compare_value, container_);
       }
 
-      bool operator !=(_Type compare_value)
+      template <typename _TypeCompare>
+      bool operator !=(const _TypeCompare& compare_value) const
       {
-	return _Compare<_Type, std::not_equal_to<_Type> >::compare(compare_value, container_);
+	// compare will be : (compare_value != container_value)
+	// which must be equivalent to  container_value != compare_value
+
+	typedef _Compare<_Type, _TypeCompare, gs::internal::not_equal_to<_TypeCompare, _Type> >
+	  __compare;
+	return __compare::compare(compare_value, container_);
       }
 
-      bool operator <(_Type compare_value)
+      template <typename _TypeCompare>
+      bool operator <(const _TypeCompare& compare_value) const
       {
-	return _Compare<_Type, std::less<_Type> >::compare(compare_value, container_);
+	// compare will be : (compare_value >= container_value)
+	// which must be equivalent to  container_value < compare_value
+
+	typedef _Compare<_Type, _TypeCompare, gs::internal::greater_equal<_TypeCompare, _Type> >
+	  __compare;
+	return __compare::compare(compare_value, container_);
       }
 
-      bool operator <=(_Type compare_value)
+      template <typename _TypeCompare>
+      bool operator <=(const _TypeCompare& compare_value) const
       {
-	return _Compare<_Type, std::less_equal<_Type> >::compare(compare_value, container_);
+	// compare will be : (compare_value > container_value)
+	// which must be equivalent to  container_value <= compare_value
+
+	typedef _Compare<_Type, _TypeCompare, gs::internal::greater<_TypeCompare, _Type> >
+	  __compare;
+	return __compare::compare(compare_value, container_);
       }
 
-      bool operator >(_Type compare_value)
+      template <typename _TypeCompare>
+      bool operator >(const _TypeCompare& compare_value) const
       {
-	return _Compare<_Type, std::greater<_Type> >::compare(compare_value, container_);
+	// compare will be : (compare_value <= container_value)
+	// which must be equivalent to  container_value > compare_value
+
+	typedef _Compare<_Type, _TypeCompare, gs::internal::less_equal<_TypeCompare, _Type> >
+	  __compare;
+	return __compare::compare(compare_value, container_);
       }
 
-      bool operator >=(_Type compare_value)
+      template <typename _TypeCompare>
+      bool operator >=(const _TypeCompare& compare_value) const
       {
-	return _Compare<_Type, std::greater_equal<_Type> >::compare(compare_value, container_);
+	// compare will be : (compare_value >= container_value)
+	// which must be equivalent to  container_value < compare_value
+
+	typedef _Compare<_Type, _TypeCompare, gs::internal::less<_TypeCompare, _Type> >
+	  __compare;
+	return __compare::compare(compare_value, container_);
       }
 
     private:
