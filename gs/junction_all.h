@@ -43,6 +43,18 @@ namespace gs
   template <typename _Type>
   class All : public __Junction<_Type, AllCompare, All<_Type> >
   {
+  public:
+    All() {};
+    All(const All<_Type>& other) :
+      __Junction<_Type, AllCompare, All<_Type> >(other.collection_)
+    {}
+
+    All<_Type>& operator = (const All<_Type>& other)
+    {
+      if (&other != this)
+	this->collection_ = other.collection_;
+      return *this;
+    }
   };
 
   // Wrapper functions.

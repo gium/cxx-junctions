@@ -43,6 +43,18 @@ namespace gs
   template <typename _Type>
   class None : public __Junction<_Type, NoneCompare, None<_Type> >
   {
+  public:
+    None() {};
+    None(const None<_Type>& other) :
+      __Junction<_Type, NoneCompare, None<_Type> >(other.collection_)
+    {}
+
+    None<_Type>& operator = (const None<_Type>& other)
+    {
+      if (&other != this)
+	this->collection_ = other.collection_;
+      return *this;
+    }
   };
 
   // Wrapper functions.

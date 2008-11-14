@@ -36,10 +36,15 @@ namespace gs
     class __Junction
     {
     public:
+      __Junction() {}
+      __Junction(const typename __Argument<_Type>::type& collection)
+	: collection_(collection)
+      {}
+
       // Push operator.
       _Concrete& operator <<(_Type value)
       {
-	container_.push_back(value);
+	collection_.push_back(value);
 	return *(static_cast<_Concrete*>(this));
       }
 
@@ -48,72 +53,72 @@ namespace gs
       template <typename _TypeCompare>
       bool operator ==(const _TypeCompare& compare_value) const
       {
-	// compare will be : (compare_value == container_value)
-	// which must be equivalent to  container_value == compare_value
+	// compare will be : (compare_value == collection_value)
+	// which must be equivalent to  collection_value == compare_value
 
 	typedef _Compare<_Type, _TypeCompare, gs::internal::equal_to<_TypeCompare, _Type> >
 	  __compare;
-	return __compare::compare(compare_value, container_);
+	return __compare::compare(compare_value, collection_);
       }
 
       template <typename _TypeCompare>
       bool operator !=(const _TypeCompare& compare_value) const
       {
-	// compare will be : (compare_value != container_value)
-	// which must be equivalent to  container_value != compare_value
+	// compare will be : (compare_value != collection_value)
+	// which must be equivalent to  collection_value != compare_value
 
 	typedef _Compare<_Type, _TypeCompare, gs::internal::not_equal_to<_TypeCompare, _Type> >
 	  __compare;
-	return __compare::compare(compare_value, container_);
+	return __compare::compare(compare_value, collection_);
       }
 
       template <typename _TypeCompare>
       bool operator <(const _TypeCompare& compare_value) const
       {
-	// compare will be : (compare_value >= container_value)
-	// which must be equivalent to  container_value < compare_value
+	// compare will be : (compare_value >= collection_value)
+	// which must be equivalent to  collection_value < compare_value
 
 	typedef _Compare<_Type, _TypeCompare, gs::internal::greater_equal<_TypeCompare, _Type> >
 	  __compare;
-	return __compare::compare(compare_value, container_);
+	return __compare::compare(compare_value, collection_);
       }
 
       template <typename _TypeCompare>
       bool operator <=(const _TypeCompare& compare_value) const
       {
-	// compare will be : (compare_value > container_value)
-	// which must be equivalent to  container_value <= compare_value
+	// compare will be : (compare_value > collection_value)
+	// which must be equivalent to  collection_value <= compare_value
 
 	typedef _Compare<_Type, _TypeCompare, gs::internal::greater<_TypeCompare, _Type> >
 	  __compare;
-	return __compare::compare(compare_value, container_);
+	return __compare::compare(compare_value, collection_);
       }
 
       template <typename _TypeCompare>
       bool operator >(const _TypeCompare& compare_value) const
       {
-	// compare will be : (compare_value <= container_value)
-	// which must be equivalent to  container_value > compare_value
+	// compare will be : (compare_value <= collection_value)
+	// which must be equivalent to  collection_value > compare_value
 
 	typedef _Compare<_Type, _TypeCompare, gs::internal::less_equal<_TypeCompare, _Type> >
 	  __compare;
-	return __compare::compare(compare_value, container_);
+	return __compare::compare(compare_value, collection_);
       }
 
       template <typename _TypeCompare>
       bool operator >=(const _TypeCompare& compare_value) const
       {
-	// compare will be : (compare_value >= container_value)
-	// which must be equivalent to  container_value < compare_value
+	// compare will be : (compare_value >= collection_value)
+	// which must be equivalent to  collection_value < compare_value
 
 	typedef _Compare<_Type, _TypeCompare, gs::internal::less<_TypeCompare, _Type> >
 	  __compare;
-	return __compare::compare(compare_value, container_);
+	return __compare::compare(compare_value, collection_);
       }
 
-    private:
+    protected:
       typedef typename __Argument<_Type>::type argument;
-      argument container_;
+      argument collection_;
     };
 
   }

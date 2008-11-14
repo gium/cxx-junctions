@@ -1,13 +1,13 @@
-// junction_one.h - Junction library			      	-*- c++ -*-
+// junction_any.h - Junction library			      	-*- c++ -*-
 // Copyright (c) 2008 Guillaume Sadegh <guillaume@sadegh-beyki.com>
 //
 // Namespace : gs
-// Operator `one'.
+// Operator `any'.
 
-#ifndef GS_JUNCTION_ONE_H
-# define GS_JUNCTION_ONE_H
+#ifndef GS_JUNCTION_ANY_H
+# define GS_JUNCTION_ANY_H
 
-# include "junction.h"
+#include "junction.h"
 
 namespace gs
 {
@@ -16,67 +16,75 @@ namespace gs
   {
     // Comparaison classes for operators.
 
-    // "One" : One (and just one) argument matchs the predicate.
-    template <typename _Type, typename _TypeCompare, class _Predicate>
-    class OneCompare
+    // "Any" : At least one argument matchs the predicate.
+    template <typename _Type, typename _TypeCompare,class _Predicate>
+    class AnyCompare
     {
     public:
       static bool compare(const _TypeCompare& compare_value,
 			  const typename __Argument<_Type>::type& container)
       {
-	unsigned count = 0;
 	for (typename __Argument<_Type>::type::const_iterator it(container.begin());
 	     it != container.end();
 	     ++it)
-	{
 	  if (_Predicate()(compare_value, *it))
-	    ++count;
-	}
-
-	return count == 1;
+	    return true;
+	return false;
       }
     };
   }
 
 
   /*------------------.
-  | Interface for One |
+  | Interface for Any |
   `------------------*/
 
   // Concrete classes for junctions.
   template <typename _Type>
-  class One : public __Junction<_Type, OneCompare, One<_Type> >
+  class Any : public __Junction<_Type, AnyCompare, Any<_Type> >
   {
+  public:
+    Any() {};
+    Any(const Any<_Type>& other) :
+      __Junction<_Type, AnyCompare, Any<_Type> >(other.collection_)
+    {}
+
+    Any<_Type>& operator = (const Any<_Type>& other)
+    {
+      if (&other != this)
+	this->collection_ = other.collection_;
+      return *this;
+    }
   };
 
   // Wrapper functions.
   template <typename _Type>
-  One<_Type> one(_Type t)
+  Any<_Type> any(_Type t)
   {
-    return One<_Type>() << t;
+    return Any<_Type>() << t;
   }
 
 #ifdef __GXX_EXPERIMENTAL_CXX0X__
   // More Wrapper functions with C++0x and variadics templates.
   template <typename _Type, typename ... Rest>
-  One<_Type>& _one(One<_Type>& junction, const _Type head, const Rest... tail)
+  Any<_Type>& _any(Any<_Type>& junction, const _Type head, const Rest... tail)
   {
     junction << head;
-    _one(junction, tail...);
+    _any(junction, tail...);
     return junction;
   }
 
   template <typename _Type>
-  One<_Type>& _one(One<_Type>& junction, const _Type head)
+  Any<_Type>& _any(Any<_Type>& junction, const _Type head)
   {
     return junction << head;
   }
 
   template <typename _Type, typename ... Rest>
-  One<_Type> one(_Type first, const Rest... tail)
+  Any<_Type> any(_Type first, const Rest... tail)
   {
-    One<_Type> junction;
-    return _one(junction << first, tail...);
+    Any<_Type> junction;
+    return _any(junction << first, tail...);
   }
 #else
 # ifdef __GNUC__
@@ -92,11 +100,12 @@ namespace gs
 #endif
 
   // Use macro for a light interface without variadic template.
-#define GS_ONE_2(V1, V2) (gs::one(V1) << V2)
-#define GS_ONE_3(V1, V2, V3) (GS_ONE_2(V1, V2) << V3)
-#define GS_ONE_4(V1, V2, V3, V4) (GS_ONE_3(V1, V2, V3) << V4)
-#define GS_ONE_5(V1, V2, V3, V4, V5) (GS_ONE_4(V1, V2, V3, V4) << V5)
-#define GS_ONE_6(V1, V2, V3, V4, V5, V6) (GS_ONE_5(V1, V2, V3, V4, V5) << V6)
+#define GS_ANY_2(V1, V2) (gs::any(V1) << V2)
+#define GS_ANY_3(V1, V2, V3) (GS_ANY_2(V1, V2) << V3)
+#define GS_ANY_4(V1, V2, V3, V4) (GS_ANY_3(V1, V2, V3) << V4)
+#define GS_ANY_5(V1, V2, V3, V4, V5) (GS_ANY_4(V1, V2, V3, V4) << V5)
+#define GS_ANY_6(V1, V2, V3, V4, V5, V6) (GS_ANY_5(V1, V2, V3, V4, V5) << V6)
+
 
 }
 
