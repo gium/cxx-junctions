@@ -1,0 +1,100 @@
+cxx-junction: a C++ junction library -- (Inspired by the Perl6
+junctions)
+
+Perl's documentation is provide at:
+http://dev.perl.org/perl6/doc/design/exe/E06.html
+
+
+* Introduction
+
+This junction library added 4 kind of functions/macros to operate with a
+set of value like we use a single value.
+
+This operators are
+  - ANY : Any value in the set.
+  - ALL : All the value in the set.
+  - NONE : No value in the set.
+  - ONE : One (and just one) value.
+
+* Examples to introduce.
+
+if (GS_ANY_3(3, 4, 7) > 5)
+  is equivalent to
+if (3 > 5 || 4 > 5 || 7 > 5)
+
+**
+
+if (GS_ALL_3(3, 4, 7) > 5)
+  is equivalent to
+if (3 > 5 && 4 > 5 && 7 > 5)
+
+**
+
+if (GS_NONE_3(3, 4, 7) > 5)
+  is equivalent to
+if (! (3 > 5 || 4 > 5 || 7 > 5))
+
+**
+
+if (GS_ONE_3(3, 4, 7) > 5)
+  is equivalent to
+if ((3 > 5) ^ (4 > 5) ^ (7 > 5))
+
+
+ But we can also to more complexes comparisons such as:
+
+ GS_ALL_3(3, 4, 7) < GS_ANY_3(5, 3, 8)
+
+* How to use.
+
+ There are two friendly use of the library.
+
+  - With variadic templates (which requires to have a compiler
+    supporting them (as >= g++4.3)).
+
+    You can use gs::all(), gs::any(), gs::none(), gs::one() with a
+    variadic number of argument.
+
+  - With macros
+
+    You can use GS_ALL_N(), GS_ANY_N(), GS_NONE_N(), GS_ONE_N() with a
+    N arguments (macros exists for 2 <= N <= 6). You can easily define
+    more macro.
+
+    Example: For GS_ALL_N, macros are :
+      #define GS_ALL_2(V1, V2) (gs::all(V1) << V2)
+      #define GS_ALL_3(V1, V2, V3) (GS_ALL_2(V1, V2) << V3)
+      ...
+      #define GS_ALL_6(V1, V2, V3, V4, V5, V6) (GS_ALL_5(V1, V2, V3, V4, V5) << V6)
+
+* How it works.
+
+  The objects All<T>, Any<T>, One<T>, None<T> override operators ==, !=,
+  <, <=, >, >= with a second template parameter.
+
+* Limitations.
+
+  Junctions are expected to always be the left operator.
+  Moreover, since in the operation ``Junction operator Object'' is internally
+  evaluated ``Object inverse_operator Junction'', Object need to
+  override:
+  operator== when Junction is used with ==
+  operator!= when Junction is used with !=
+  operator< when Junction is used with >=
+  operator<= when Junction is used with >
+  operator> when Junction is used with <=
+  operator>= when Junction is used with <
+
+  for example:
+
+    class IntegerWrapper
+    {
+    public:
+	IntegerWrapper(int i) : _i(i) {}
+	bool operator >= (int lhs) const {return i_ >= lhs};
+    private:
+	int i_;
+    };
+
+    /* < requires IntegerWrapper to override operator>= */
+    GS_ALL_3(3, 1, 5) < IntegerWrapper(6); // true

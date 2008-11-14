@@ -1,4 +1,8 @@
 2008-11-14  Guillaume SADEGH  <sadegh@lrde.epita.fr>
+	* README: Add the README.
+	* AUTHORS: Edit the AUTHORS.
+
+2008-11-14  Guillaume SADEGH  <sadegh@lrde.epita.fr>
 
 	* gs/junction_all.h (All), gs/junction_any.h (Any),
 	gs/junction_none.h (None), gs/junction_one.h (One),
