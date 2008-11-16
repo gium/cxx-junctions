@@ -50,8 +50,17 @@ namespace gs
 
       // Comparaison operators.
 
+      /*------.
+      | equal |
+      `------*/
       template <typename _TypeCompare>
       bool operator ==(const _TypeCompare& compare_value) const
+      {
+	return equal(compare_value);
+      }
+
+      template <typename _TypeCompare>
+      bool equal(const _TypeCompare& compare_value) const
       {
 	// compare will be : (compare_value == collection_value)
 	// which must be equivalent to  collection_value == compare_value
@@ -61,8 +70,17 @@ namespace gs
 	return __compare::compare(compare_value, collection_);
       }
 
+      /*----------.
+      | not equal |
+      `----------*/
       template <typename _TypeCompare>
       bool operator !=(const _TypeCompare& compare_value) const
+      {
+	return not_equal(compare_value);
+      }
+
+      template <typename _TypeCompare>
+      bool not_equal(const _TypeCompare& compare_value) const
       {
 	// compare will be : (compare_value != collection_value)
 	// which must be equivalent to  collection_value != compare_value
@@ -72,46 +90,82 @@ namespace gs
 	return __compare::compare(compare_value, collection_);
       }
 
+      /*-----.
+      | less |
+      `-----*/
       template <typename _TypeCompare>
       bool operator <(const _TypeCompare& compare_value) const
       {
-	// compare will be : (compare_value >= collection_value)
-	// which must be equivalent to  collection_value < compare_value
-
-	typedef _Compare<_Type, _TypeCompare, gs::internal::greater_equal<_TypeCompare, _Type> >
-	  __compare;
-	return __compare::compare(compare_value, collection_);
+	return less(compare_value);
       }
 
       template <typename _TypeCompare>
-      bool operator <=(const _TypeCompare& compare_value) const
+      bool less(const _TypeCompare& compare_value) const
       {
 	// compare will be : (compare_value > collection_value)
-	// which must be equivalent to  collection_value <= compare_value
+	// which must be equivalent to  collection_value < compare_value
 
 	typedef _Compare<_Type, _TypeCompare, gs::internal::greater<_TypeCompare, _Type> >
 	  __compare;
 	return __compare::compare(compare_value, collection_);
       }
 
+      /*-----------.
+      | less_equal |
+      `-----------*/
       template <typename _TypeCompare>
-      bool operator >(const _TypeCompare& compare_value) const
+      bool operator <=(const _TypeCompare& compare_value) const
       {
-	// compare will be : (compare_value <= collection_value)
-	// which must be equivalent to  collection_value > compare_value
+	return less_equal(compare_value);
+      }
 
-	typedef _Compare<_Type, _TypeCompare, gs::internal::less_equal<_TypeCompare, _Type> >
+      template <typename _TypeCompare>
+      bool less_equal(const _TypeCompare& compare_value) const
+      {
+	// compare will be : (compare_value >= collection_value)
+	// which must be equivalent to  collection_value <= compare_value
+
+	typedef _Compare<_Type, _TypeCompare, gs::internal::greater_equal<_TypeCompare, _Type> >
 	  __compare;
 	return __compare::compare(compare_value, collection_);
       }
 
+      /*--------.
+      | greater |
+      `--------*/
+      template <typename _TypeCompare>
+      bool operator >(const _TypeCompare& compare_value) const
+      {
+	return greater(compare_value);
+      }
+
+      template <typename _TypeCompare>
+      bool greater(const _TypeCompare& compare_value) const
+      {
+	// compare will be : (compare_value < collection_value)
+	// which must be equivalent to  collection_value > compare_value
+
+	typedef _Compare<_Type, _TypeCompare, gs::internal::less<_TypeCompare, _Type> >
+	  __compare;
+	return __compare::compare(compare_value, collection_);
+      }
+
+      /*--------------.
+      | greater_equal |
+      `--------------*/
       template <typename _TypeCompare>
       bool operator >=(const _TypeCompare& compare_value) const
       {
-	// compare will be : (compare_value >= collection_value)
-	// which must be equivalent to  collection_value < compare_value
+	return greater_equal(compare_value);
+      }
 
-	typedef _Compare<_Type, _TypeCompare, gs::internal::less<_TypeCompare, _Type> >
+      template <typename _TypeCompare>
+      bool greater_equal(const _TypeCompare& compare_value) const
+      {
+	// compare will be : (compare_value >= collection_value)
+	// which must be equivalent to  collection_value <= compare_value
+
+	typedef _Compare<_Type, _TypeCompare, gs::internal::less_equal<_TypeCompare, _Type> >
 	  __compare;
 	return __compare::compare(compare_value, collection_);
       }

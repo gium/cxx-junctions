@@ -103,6 +103,44 @@ namespace gs
 # endif
 #endif
 
+
+  // Enable One as right operator
+  template <typename _LHS, typename _RHS>
+  bool operator == (_LHS lhs, One<_RHS> rhs)
+  {
+    return rhs.equal(lhs);
+  }
+
+  template <typename _LHS, typename _RHS>
+  bool operator != (_LHS lhs, One<_RHS> rhs)
+  {
+    return rhs.not_equal(lhs);
+  }
+
+  template <typename _LHS, typename _RHS>
+  bool operator < (_LHS lhs, One<_RHS> rhs)
+  {
+    return rhs.greater(lhs);
+  }
+
+  template <typename _LHS, typename _RHS>
+  bool operator <= (_LHS lhs, One<_RHS> rhs)
+  {
+    return rhs.greater_equal(lhs);
+  }
+
+  template <typename _LHS, typename _RHS>
+  bool operator > (_LHS lhs, One<_RHS> rhs)
+  {
+    return rhs.less(lhs);
+  }
+
+  template <typename _LHS, typename _RHS>
+  bool operator >= (_LHS lhs, One<_RHS> rhs)
+  {
+    return rhs.less_equal(lhs);
+  }
+
   // Use macro for a light interface without variadic template.
 #define GS_ONE_2(V1, V2) (gs::one(V1) << V2)
 #define GS_ONE_3(V1, V2, V3) (GS_ONE_2(V1, V2) << V3)

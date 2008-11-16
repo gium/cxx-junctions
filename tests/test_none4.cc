@@ -78,5 +78,14 @@ int main()
   {
     std::cout << "FAIL" << std::endl;
     return 1;
-  }}
+  }
+
+  if (2 == GS_NONE_3(3, 4, 7))
+    std::cout << "PASS" << std::endl;
+  else
+  {
+    std::cout << "FAIL" << std::endl;
+    return 1;
+  }
+}
 

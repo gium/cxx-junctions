@@ -99,6 +99,42 @@ namespace gs
 # endif
 #endif
 
+  // Enable All as right operator
+  template <typename _LHS, typename _RHS>
+  bool operator == (_LHS lhs, All<_RHS> rhs)
+  {
+    return rhs.equal(lhs);
+  }
+
+  template <typename _LHS, typename _RHS>
+  bool operator != (_LHS lhs, All<_RHS> rhs)
+  {
+    return rhs.not_equal(lhs);
+  }
+
+  template <typename _LHS, typename _RHS>
+  bool operator < (_LHS lhs, All<_RHS> rhs)
+  {
+    return rhs.greater_equal(lhs);
+  }
+
+  template <typename _LHS, typename _RHS>
+  bool operator <= (_LHS lhs, All<_RHS> rhs)
+  {
+    return rhs.greater(lhs);
+  }
+
+  template <typename _LHS, typename _RHS>
+  bool operator > (_LHS lhs, All<_RHS> rhs)
+  {
+    return rhs.less_equal(lhs);
+  }
+
+  template <typename _LHS, typename _RHS>
+  bool operator >= (_LHS lhs, All<_RHS> rhs)
+  {
+    return rhs.less(lhs);
+  }
 
   // Use macro for a light interface without variadic template.
 #define GS_ALL_2(V1, V2) (gs::all(V1) << V2)

@@ -79,5 +79,13 @@ int main()
     std::cout << "FAIL" << std::endl;
     return 1;
   }
+
+  if (5 < GS_ANY_3(3, 4, 7))
+    std::cout << "PASS" << std::endl;
+  else
+  {
+    std::cout << "FAIL" << std::endl;
+    return 1;
+  }
 }
 
