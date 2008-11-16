@@ -1,4 +1,7 @@
 2008-11-16  Guillaume SADEGH  <sadegh@lrde.epita.fr>
+	* README: Update.
+
+2008-11-16  Guillaume SADEGH  <sadegh@lrde.epita.fr>
 
 	Junctions as right operand works.
 	* gs/junction.h: Name all operators to avoid infinite calls to
@@ -7,9 +10,8 @@
 	gs/junction_one.h: Overload all operators with the right operand
 	typed by a junction.
 	* tests/test_all4.cc, tests/test_any4.cc, tests/test_none4.cc,
-	tests/test_one4.cc, tests/test_all.cc, tests/test_any.cc,
-	tests/test_none.cc, tests/test_one.cc, some_test.cc: Add tests
-	with junctions on the right operand.
+	tests/test_one4.cc, some_test.cc: Add tests with junctions on
+	the right operand.
 
 2008-11-16  Guillaume SADEGH  <sadegh@lrde.epita.fr>
 	Add autotools to the project.

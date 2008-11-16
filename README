@@ -1,100 +1,174 @@
-cxx-junction: a C++ junction library -- (Inspired by the Perl6
-junctions)
+cxx-junction: a C++ junction library—(Inspired by the Perl6 junctions)
 
-Perl's documentation is provide at:
+This readme is also availible here:
+http://github.com/gium/cxx-junctions/wikis
+
+Perl’s documentation is availible at:
 http://dev.perl.org/perl6/doc/design/exe/E06.html
 
+1. Introduction
 
-* Introduction
+This junction library adds 4 kinds of functions/macros to operate with a
+set of values in the same way we use a single value.  These operators
+are
 
-This junction library added 4 kind of functions/macros to operate with a
-set of value like we use a single value.
+    * Any : Any value in the set.
+    * All : All the value in the set.
+    * None : No value in the set.
+    * One : One (and just one) value.
 
-This operators are
-  - ANY : Any value in the set.
-  - ALL : All the value in the set.
-  - NONE : No value in the set.
-  - ONE : One (and just one) value.
 
-* Examples to introduce.
+2. Examples to introduce.
+
+An overview of this sugar syntax with examples.
+
+
+any:
 
 if (GS_ANY_3(3, 4, 7) > 5)
   is equivalent to
 if (3 > 5 || 4 > 5 || 7 > 5)
+  is equivalent to
+if (5 < GS_ANY_3(3, 4, 7))
+  is equivalent to
+if (gs::all(3, 4, 7) > 5) // with variadic templates
 
-**
+
+all:
 
 if (GS_ALL_3(3, 4, 7) > 5)
   is equivalent to
 if (3 > 5 && 4 > 5 && 7 > 5)
+  is equivalent to
+if (5 < GS_ALL_3(3, 4, 7))
+  is equivalent to
+if (gs::all(3, 4, 7) > 5) // with variadic templates
 
-**
+
+none:
 
 if (GS_NONE_3(3, 4, 7) > 5)
   is equivalent to
 if (! (3 > 5 || 4 > 5 || 7 > 5))
+  is equivalent to
+if (5 < GS_NONE_3(3, 4, 7))
+  is equivalent to
+if (gs::none(3, 4, 7) > 5) // with variadic templates
 
-**
+
+one:
 
 if (GS_ONE_3(3, 4, 7) > 5)
   is equivalent to
 if ((3 > 5) ^ (4 > 5) ^ (7 > 5))
+  is equivalent to
+if (5 < GS_ONE_3(3, 4, 7))
+  is equivalent to
+if (gs::one(3, 4, 7) > 5) // with variadic templates
 
 
- But we can also to more complexes comparisons such as:
+But we can also do more complexes comparisons such as:
 
- GS_ALL_3(3, 4, 7) < GS_ANY_3(5, 3, 8)
+GS_ALL_3(3, 4, 7) < GS_ANY_3(5, 3, 8)
 
-* How to use.
+or
 
- There are two friendly use of the library.
+ 4 < (GS_ANY_2(GS_ALL_2(1, 2), GS_ALL_2(5, 6)))
 
-  - With variadic templates (which requires to have a compiler
-    supporting them (as >= g++4.3)).
 
-    You can use gs::all(), gs::any(), gs::none(), gs::one() with a
-    variadic number of argument.
+3. How to use.
 
-  - With macros
+3.1 Install.
 
-    You can use GS_ALL_N(), GS_ANY_N(), GS_NONE_N(), GS_ONE_N() with a
-    N arguments (macros exists for 2 <= N <= 6). You can easily define
-    more macro.
+When a retrive a tarball or clone the repository from
+http://github.com/gium/cxx-junctions.
 
-    Example: For GS_ALL_N, macros are :
+$sudo make install should be enough to work. Headers will be copied in
+the includedir/gs.
+
+3.2 Includes.
+
+Functions and classes are provided in the namespace gs.
+
+We can use the following includes:
+
+#include "gs/junction.h"
+To include all the library.
+
+Or we can choose which junction to use.
+
+  #include "gs/junction_all.h"
+  #include "gs/junction_any.h"
+  #include "gs/junction_none.h"
+  #include "gs/junction_one.h"
+
+3.3 The use.
+
+There are two friendly use of the library.
+
+    * With variadic templates (which requires to have a compiler
+      supporting them (as >= g++4.3)).
+
+      You can use gs::all(), gs::any(), gs::none(), gs::one() with a
+      variadic number of argument.
+
+    * With macros
+
+      You can use GS_ALL_N(), GS_ANY_N(), GS_NONE_N(), GS_ONE_N() with a
+      N arguments (macros exists for 2 <= N <= 6). You can easily define
+      more macro.
+
+      Example: For GS_ALL_N, macros are :
+
       #define GS_ALL_2(V1, V2) (gs::all(V1) << V2)
       #define GS_ALL_3(V1, V2, V3) (GS_ALL_2(V1, V2) << V3)
       ...
-      #define GS_ALL_6(V1, V2, V3, V4, V5, V6) (GS_ALL_5(V1, V2, V3, V4, V5) << V6)
+      #define GS_ALL_6(V1, V2, V3, V4, V5, V6) (GS_ALL_5(V1, V2, V3, V4,
+       V5) << V6)
 
-* How it works.
+4. How does it work.
 
-  The objects All<T>, Any<T>, One<T>, None<T> override operators ==, !=,
-  <, <=, >, >= with a second template parameter.
+The objects All<T>, Any<T>, One<T>, None<T> override operators ==, !=,
+<, <=, >, >= with a second template parameter.
 
-* Limitations.
+5. Limitations.
 
-  Junctions are expected to always be the left operator.
-  Moreover, since in the operation ``Junction operator Object'' is internally
-  evaluated ``Object inverse_operator Junction'', Object need to
-  override:
-  operator== when Junction is used with ==
-  operator!= when Junction is used with !=
-  operator< when Junction is used with >=
-  operator<= when Junction is used with >
-  operator> when Junction is used with <=
-  operator>= when Junction is used with <
+Since the operation ``Junction operator Object’’ is internally evaluated
+as ``Object inverse_operator Junction’’, Object need to override:
 
-  for example:
+operator== 	when Junction is used with ==
+operator!= 	when Junction is used with !=
+operator< 	when Junction is used with >
+operator<= 	when Junction is used with >=
+operator> 	when Junction is used with <
+operator>= 	when Junction is used with <=
 
-    class IntegerWrapper
+for example:
+
+#include <gs/junction_all.h>
+
+class IntegerWrapper
     {
     public:
-	IntegerWrapper(int i) : _i(i) {}
-	bool operator >= (int lhs) const {return i_ >= lhs};
+      IntegerWrapper(int i) : _i(i) {}
+      bool operator > (int lhs) const {return i_ >= lhs};
     private:
-	int i_;
+      int i_;
     };
 
-    /* < requires IntegerWrapper to override operator>= */
+    /* < requires IntegerWrapper to override operator> */
+int main() {
     GS_ALL_3(3, 1, 5) < IntegerWrapper(6); // true
+}
+
+6. Some examples
+
+Some examples may be found in the test directory.
+
+7. Todo
+
+    * Override arithmetics operators
+          o For example, GS_ANY_2(3, 4) * 2 == 8 should work. (easy)
+    * Maybe another storage container (boost::range ? An useful
+      dependency ?)
+    * Accepting two iterators as input.
