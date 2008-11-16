@@ -8,7 +8,7 @@ AC_CACHE_CHECK([support for variadic templates (C++0x)],
   ac_cv_cxx_variadic_templates='no'
 
   AC_LANG_PUSH(C++)
-  for extra_flag in [' '] '-test' '-std=c++0x'; do
+  for extra_flag in ' ' '-std=c++0x'; do
     CXXFLAGS="$CXXFLAGS_SAVE $extra_flag"
     AC_COMPILE_IFELSE(AC_LANG_PROGRAM([[
 template <typename ... T>

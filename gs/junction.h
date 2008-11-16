@@ -9,8 +9,6 @@
 # define GS_JUNCTION_H
 
 # include <vector>
-# include <algorithm>
-# include <functional>
 
 # include "internal.h"
 

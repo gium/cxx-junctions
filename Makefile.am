@@ -2,3 +2,4 @@ ACLOCAL_AMFLAGS = -I m4
 EXTRA_DIST = ChangeLog AUTHORS README
 SUBDIRS = gs tests
 
+CLEANFILES = *.gz *.bz2

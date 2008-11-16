@@ -1,4 +1,15 @@
 2008-11-16  Guillaume SADEGH  <sadegh@lrde.epita.fr>
+
+	Various small fixes (mainly on the build system).
+	* bootstrap.sh: Bootstrap autoconf and automake, not invoke
+	autoheader.
+	* gs/junction.h: Remove useless includes.
+	* configure.ac: Enable gz tarball generation.
+	* m4/variadic.m4: Remove debug statement.
+	* Makefile.am: Add CLEANFILES.
+
+2008-11-16  Guillaume SADEGH  <sadegh@lrde.epita.fr>
+
 	* README: Update.
 
 2008-11-16  Guillaume SADEGH  <sadegh@lrde.epita.fr>
