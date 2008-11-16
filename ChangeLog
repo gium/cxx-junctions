@@ -1,3 +1,19 @@
+2008-11-16  Guillaume SADEGH  <sadegh@lrde.epita.fr>
+	Add autotools to the project.
+
+	* configure.ac, Makefile.am, tests/Makefile.am, gs/Makefile.am:
+	Add Autotools to the project.
+	* m4/variadic.m4 (AC_CXX_VARIADIC_TEMPLATES): Add a m4 macro to
+	check if the compiler supports variadic template, and find if
+	flags are needed to enable this feature.
+	* tests/some_test.cc, tests/test_all2.cc, tests/test_all3.cc,
+	tests/test_all4.cc, tests/test_all.cc, tests/test_any2.cc,
+	tests/test_any3.cc, tests/test_any4.cc, tests/test_any.cc,
+	tests/test_none2.cc, tests/test_none3.cc, tests/test_none4.cc,
+	tests/test_none.cc, tests/test_one2.cc, tests/test_one3.cc,
+	tests/test_one4.cc, tests/test_one.cc: It returns now 1 when a
+	test fails.
+
 2008-11-14  Guillaume SADEGH  <sadegh@lrde.epita.fr>
 	* README: Add the README.
 	* AUTHORS: Edit the AUTHORS.

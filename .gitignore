@@ -1,2 +1,14 @@
 *.o
+*.in
+config.h
+aclocal.m4
+autoscan.log
+autom4te.cache
+build-aux
+*.log
+*.status
+Makefile
+configure
+*~
+stamp-h1
 

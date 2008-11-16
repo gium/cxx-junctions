@@ -11,45 +11,72 @@ int main()
   if (! (GS_NONE_3(6, 7, 11) < 10))
     std::cout << "PASS" << std::endl;
   else
+  {
     std::cout << "FAIL" << std::endl;
+    return 1;
+  }
 
   if ((GS_NONE_3(6, 7, 9) > 10))
     std::cout << "PASS" << std::endl;
   else
+  {
     std::cout << "FAIL" << std::endl;
+    return 1;
+  }
 
   if ((GS_NONE_3(6, 7, 11) == 10))
     std::cout << "PASS" << std::endl;
   else
+  {
     std::cout << "FAIL" << std::endl;
+    return 1;
+  }
 
   if (! ((GS_NONE_4(10, 6, 7, 11)) == 10))
     std::cout << "PASS" << std::endl;
   else
+  {
     std::cout << "FAIL" << std::endl;
+    return 1;
+  }
 
   if (! (GS_NONE_3(6, 10, 10) != 10))
     std::cout << "PASS" << std::endl;
   else
+  {
     std::cout << "FAIL" << std::endl;
+    return 1;
+  }
 
   if (! (GS_NONE_3(6, 23, 12) < 10))
     std::cout << "PASS" << std::endl;
   else
+  {
     std::cout << "FAIL" << std::endl;
+    return 1;
+  }
 
   if (! (GS_NONE_3(6, -2, 9) > -1))
     std::cout << "PASS" << std::endl;
   else
+  {
     std::cout << "FAIL" << std::endl;
+    return 1;
+  }
 
   if ((GS_NONE_2("testrere", "etest") == "test"))
     std::cout << "PASS" << std::endl;
   else
+  {
     std::cout << "FAIL" << std::endl;
+    return 1;
+  }
 
   if (! (GS_NONE_2("test", "tstee") == "test"))
     std::cout << "PASS" << std::endl;
   else
+  {
     std::cout << "FAIL" << std::endl;
-}
+    return 1;
+  }}
+
