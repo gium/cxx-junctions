@@ -1,3 +1,22 @@
+2008-12-18  Guillaume SADEGH  <sadegh@lrde.epita.fr>
+
+	Enhance the code quality.
+
+	* m4/variadic.m4, gs/junction_all.h, gs/junction_any.h, gs/junction_none.h,
+	gs/junction_one.h: Add HAVE_VARIADIC macro when the compiler
+	supports variadic templates.
+	* gs/junction.h: Rename compare_value in rhs. operator<< arguments
+	policy (by value or reference) depends on the type of the argument.
+	* gs/internal.h: Rename variables: _v1 to lhs, _v2 to rhs, _Type1
+	to _Lhs, _Type2 to _Rhs.
+	* gs/junction_all.h, gs/junction_any.h, gs/junction_none.h,
+	gs/junction_one.h
+	(RHS_,LHS_): rename in (Rhs_, Lhs_)
+	(t): rename in lhs.
+	* gs/junction_all.h, gs/junction_any.h, gs/junction_none.h,
+	gs/junction_one.h, gs/junction.h, gs/internal.h: Replace
+	tabulations by whitespaces.
+
 2008-11-16  Guillaume SADEGH  <sadegh@lrde.epita.fr>
 
 	Various small fixes (mainly on the build system).

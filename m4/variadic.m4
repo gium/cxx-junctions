@@ -24,6 +24,7 @@ void bar(){ foo(1, 2, 3); }
 
   if test x"$ac_cv_cxx_variadic_templates" = x"yes"; then
       CXXFLAGS="$CXXFLAGS_SAVE $extra_flag"
+      AC_DEFINE([HAVE_VARIADIC], 1, [Set to 1 if your compiler supports variadic templates.])
   else
       CXXFLAGS="$CXXFLAGS_SAVE"
   fi

@@ -1,4 +1,4 @@
-// junction_all.h - Junction library			      	-*- c++ -*-
+// junction_all.h - Junction library                            -*- c++ -*-
 // Copyright (c) 2008 Guillaume Sadegh <guillaume@sadegh-beyki.com>
 //
 // Namespace : gs
@@ -21,15 +21,15 @@ namespace gs
     class AllCompare
     {
     public:
-      static bool compare(const _TypeCompare& compare_value,
-			  const typename __Argument<_Type>::type& container)
+      static bool compare(const _TypeCompare& rhs,
+                          const typename __Argument<_Type>::type& container)
       {
-	for (typename __Argument<_Type>::type::const_iterator it(container.begin());
-	     it != container.end();
-	     ++it)
-	  if (!_Predicate()(compare_value, *it))
-	    return false;
-	return true;
+        for (typename __Argument<_Type>::type::const_iterator it(container.begin());
+             it != container.end();
+             ++it)
+          if (!_Predicate()(rhs, *it))
+            return false;
+        return true;
       }
     };
   }
@@ -52,19 +52,19 @@ namespace gs
     All<_Type>& operator = (const All<_Type>& other)
     {
       if (&other != this)
-	this->collection_ = other.collection_;
+        this->collection_ = other.collection_;
       return *this;
     }
   };
 
   // Wrapper functions.
   template <typename _Type>
-  All<_Type> all(_Type t)
+  All<_Type> all(_Type lhs)
   {
-    return All<_Type>() << t;
+    return All<_Type>() << lhs;
   }
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
+#ifdef HAVE_VARIADIC
   // More Wrapper functions with C++0x and variadics templates.
   template <typename _Type, typename ... Rest>
   All<_Type>& _all(All<_Type>& junction, const _Type head, const Rest... tail)
@@ -100,48 +100,48 @@ namespace gs
 #endif
 
   // Enable All as right operator
-  template <typename _LHS, typename _RHS>
-  bool operator == (_LHS lhs, All<_RHS> rhs)
+  template <typename _Lhs, typename _Rhs>
+  bool operator == (_Lhs lhs, All<_Rhs> rhs)
   {
     return rhs.equal(lhs);
   }
 
-  template <typename _LHS, typename _RHS>
-  bool operator != (_LHS lhs, All<_RHS> rhs)
+  template <typename _Lhs, typename _Rhs>
+  bool operator != (_Lhs lhs, All<_Rhs> rhs)
   {
     return rhs.not_equal(lhs);
   }
 
-  template <typename _LHS, typename _RHS>
-  bool operator < (_LHS lhs, All<_RHS> rhs)
+  template <typename _Lhs, typename _Rhs>
+  bool operator < (_Lhs lhs, All<_Rhs> rhs)
   {
     return rhs.greater_equal(lhs);
   }
 
-  template <typename _LHS, typename _RHS>
-  bool operator <= (_LHS lhs, All<_RHS> rhs)
+  template <typename _Lhs, typename _Rhs>
+  bool operator <= (_Lhs lhs, All<_Rhs> rhs)
   {
     return rhs.greater(lhs);
   }
 
-  template <typename _LHS, typename _RHS>
-  bool operator > (_LHS lhs, All<_RHS> rhs)
+  template <typename _Lhs, typename _Rhs>
+  bool operator > (_Lhs lhs, All<_Rhs> rhs)
   {
     return rhs.less_equal(lhs);
   }
 
-  template <typename _LHS, typename _RHS>
-  bool operator >= (_LHS lhs, All<_RHS> rhs)
+  template <typename _Lhs, typename _Rhs>
+  bool operator >= (_Lhs lhs, All<_Rhs> rhs)
   {
     return rhs.less(lhs);
   }
 
   // Use macro for a light interface without variadic template.
-#define GS_ALL_2(V1, V2) (gs::all(V1) << V2)
-#define GS_ALL_3(V1, V2, V3) (GS_ALL_2(V1, V2) << V3)
-#define GS_ALL_4(V1, V2, V3, V4) (GS_ALL_3(V1, V2, V3) << V4)
-#define GS_ALL_5(V1, V2, V3, V4, V5) (GS_ALL_4(V1, V2, V3, V4) << V5)
-#define GS_ALL_6(V1, V2, V3, V4, V5, V6) (GS_ALL_5(V1, V2, V3, V4, V5) << V6)
+# define GS_ALL_2(V1, V2) (gs::all(V1) << V2)
+# define GS_ALL_3(V1, V2, V3) (GS_ALL_2(V1, V2) << V3)
+# define GS_ALL_4(V1, V2, V3, V4) (GS_ALL_3(V1, V2, V3) << V4)
+# define GS_ALL_5(V1, V2, V3, V4, V5) (GS_ALL_4(V1, V2, V3, V4) << V5)
+# define GS_ALL_6(V1, V2, V3, V4, V5, V6) (GS_ALL_5(V1, V2, V3, V4, V5) << V6)
 
 }
 
